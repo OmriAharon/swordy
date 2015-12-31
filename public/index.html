@@ -193,10 +193,10 @@
         }
 
         /*#c {*/
-            /*position: absolute;*/
-            /*left: 380px;*/
-            /*top: 62px;*/
-            /*-webkit-user-select: none;*/
+        /*position: absolute;*/
+        /*left: 380px;*/
+        /*top: 62px;*/
+        /*-webkit-user-select: none;*/
         /*}*/
 
         #c.full {
@@ -207,8 +207,15 @@
 
         .vanishes {
             position: absolute;
-            left: 387px !important;
-            top: 36px !important;
+            left: 50%;
+            top: 50%;
+            margin-top: -350px;
+            margin-left: auto;
+            /* background: red; */
+            width: 300px;
+            z-index: 9999;
+            text-align: center;
+            margin-left: -410px;
         }
 
         .vanishes img {
@@ -221,10 +228,25 @@
         /*}*/
 
         .canvas-container {
-            position: absolute;
-            left: 380px;
-            top: 62px;
+            position: absolute !important;
+            left: 50%;
+            top: 50%;
+            margin-left: -300px;
+            margin-top: -300px;
+            width: 600px;
+            height: 600px;
+            border: 9px solid #FFF;
+            border-radius: 14px;
+            -webkit-box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.75);
+
         }
+        body {
+            background: url('images/light_grey.png');
+
+        }
+
 
     </style>
 </head>
@@ -239,16 +261,18 @@
 <div class="replay">Hit <i>enter</i> to restart</div>
 <div class="vanish">Hit <i>space</i> to vanish</div>
 <div id="high-score-text">Your high score is: <span id="high-score"></span></div>
-<!--<div id="superpower">Vanish charge</div>-->
-<!--<div id="space-activate">(<i>space</i> to activate)</div>-->
-<!--<div id="charger"></div>-->
 <div class="points-text">Points</div>
 <div class="points-value"></div>
-   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-<script src="progressbar.js"></script>
-<script src="game.js"></script>
+
+<audio id="death1" src="music/Death1.wav"></audio>
+<audio id="death2" src="music/Death2.wav"></audio>
+<audio id="vanish-audio" src="music/Vanish.wav"></audio>
+<audio id="use-vanish" src="music/Usevanish.wav"></audio>
+<audio id="background-music" src="music/Background.m4a"></audio>
+
+<script src="js/fabric.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/game.js"></script>
 <script>
     (function () {
 
@@ -269,5 +293,3 @@
 </script>
 </body>
 </html>
-
-
