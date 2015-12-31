@@ -67,6 +67,8 @@ function beginGame(replay) {
     totalPoints = 0;
     $('.vanishes').html('');
     $('.points-value').html('');
+    var backgroundMusic = document.getElementById('background-music');
+    backgroundMusic.play();
     var chargerCircle;
 
     function stop() {
@@ -76,6 +78,7 @@ function beginGame(replay) {
         ctx.textBaseline = "top";
         ctx.fillStyle = 'white';
         ctx.fillText("Game over!", 250, 300, 140);
+        vanishes.splice(0, vanishes.length);
         //chargerCircle.stop();
     }
 
@@ -257,6 +260,7 @@ function beginGame(replay) {
         if (e.keyCode === 32 && vanishes.length > 0 && animationRequestId !== 'STOP') {
             vanishes.pop();
             updateVanishList();
+            document.getElementById('use-vanish').play();
             vanishHero = true;
             timeVanished = Date.now();
             chargerText = VANISHING_COUNTER;
@@ -320,6 +324,10 @@ function beginGame(replay) {
                         heroImageData &&
                         monsterImageData &&
                         data.result) {
+                        var d1 = document.getElementById('death1');
+                        d1.play();
+                        var d2 = document.getElementById('death2');
+                        d2.play();
                         setTimeout(function () {
                             stop();
                         }, 0);
@@ -336,6 +344,8 @@ function beginGame(replay) {
                     ninjas.splice(0, ninjas.length);
                     //chargerCircle.set(1);
                     addVanish();
+                    var v = document.getElementById('vanish-audio');
+                    v.play();
                 }
             }
         }
