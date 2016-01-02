@@ -249,14 +249,6 @@ function beginGame(replay) {
     var keysDown = {};
 
     addEventListener("keydown", function (e) {
-        keysDown[e.keyCode] = true;
-    }, false);
-
-    addEventListener("keyup", function (e) {
-        delete keysDown[e.keyCode];
-    }, false);
-
-    addEventListener("keyup", function (e) {
         if (e.keyCode === 32 && vanishes.length > 0 && animationRequestId !== 'STOP') {
             vanishes.pop();
             updateVanishList();
@@ -271,18 +263,15 @@ function beginGame(replay) {
                     }, time * 1000);
                 })(i);
             }
-            //superpowerCharged = false;
-
-            //$('#charger').removeClass('full');
-
-            //chargerCircle.animate(0, {
-            //    duration: VANISHING_COUNTER * 1000,
-            //    from: {color: endColor},
-            //    to: {color: startColor}
-            //});
+        }
+        else if (e.keyCode !== 32) {
+            keysDown[e.keyCode] = true;
         }
     }, false);
 
+    addEventListener("keyup", function (e) {
+        delete keysDown[e.keyCode];
+    }, false);
 
     var reset = function () {
         gameStartDate = Date.now();
@@ -365,10 +354,6 @@ function beginGame(replay) {
         return parseInt((Date.now() - (dateFrom || gameStartDate)) / 1000, 10);
     }
 
-    function imageSlightlyOutsideCanvas(obj, objImage) {
-        return obj.x < 0 || obj.y < 0 || (obj.x + objImage.width > canvas.width) || (obj.y + objImage.height > canvas.height);
-    }
-
     function imageCompletelyOutsideCanvas(obj, objImage) {
         return obj.x + objImage.width < 0 || obj.y + objImage.height < 0 || (obj.x > canvas.width + 10) || (obj.y > canvas.height + 10);
     }
@@ -377,13 +362,13 @@ function beginGame(replay) {
         if (obj.x < 0) {
             obj.x = 0;
         }
-        else if (obj.y < 0) {
+        if (obj.y < 0) {
             obj.y = 0;
         }
-        else if (obj.x + objImage.width > canvas.width) {
+        if (obj.x + objImage.width > canvas.width) {
             obj.x = canvas.width - objImage.width;
         }
-        else if (obj.y + objImage.height > canvas.height) {
+        if (obj.y + objImage.height > canvas.height) {
             obj.y = canvas.height - objImage.height;
         }
 
@@ -451,9 +436,7 @@ function beginGame(replay) {
         }
 
         if (heroReady) {
-            if (imageSlightlyOutsideCanvas(hero, heroImage)) {
-                stopObjectFromEscaping(hero, heroImage);
-            }
+            stopObjectFromEscaping(hero, heroImage);
 
             if (!vanishHero || blinker++ % 3 === 0) {
                 ctx.drawImage(heroImage, hero.x, hero.y);
@@ -511,7 +494,7 @@ function beginGame(replay) {
     function checkToAddMonster() {
         if (secondsSinceStarted % SECONDS_BETWEEN_SPAWNS === 0 && secondsDispersedSwords.indexOf(secondsSinceStarted) === -1) {
             for (var i = 0; i < NUMBER_OF_SPAWNS; i++) {
-                monsters.push(createMonster());
+                //monsters.push(createMonster());
             }
             secondsDispersedSwords.push(secondsSinceStarted);
         }
