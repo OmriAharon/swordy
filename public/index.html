@@ -8,7 +8,7 @@
 
         #high-score-text {
             position: absolute;
-            top: 250px;
+            top: 400px;
             left: 100px;
             width: 200px;
             height: 150px;
@@ -98,24 +98,12 @@
             top: 70px;
             left: 100px;
             width: 200px;
-            height: 50px;
             text-align: center;
             line-height: 50px;
 
         }
 
-        .vanish {
-            position: absolute;
-            top: 160px;
-            left: 100px;
-            width: 200px;
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-
-        }
-
-        .replay, .vanish {
+        .replay {
             -moz-box-shadow: 0px 10px 14px -7px #3e7327;
             -webkit-box-shadow: 0px 10px 14px -7px #3e7327;
             box-shadow: 0px 10px 14px -7px #3e7327;
@@ -242,6 +230,7 @@
             box-shadow: 0px 0px 28px 0px rgba(0, 0, 0, 0.75);
 
         }
+
         body {
             background: url('images/light_grey.png');
 
@@ -254,12 +243,18 @@
 
 <div class="game-container">
     <div class="vanishes"></div>
-    <canvas id="c" width="600" height="600" ></canvas>
+    <canvas id="c" width="600" height="600"></canvas>
     <canvas style="border:1px solid red; margin-top: 10%;" id="testCanvas" width="600" height="600"></canvas>
 </div>
 
-<div class="replay">Hit <i>enter</i> to restart</div>
-<div class="vanish">Hit <i>space</i> to vanish</div>
+<div class="replay">
+    <div ><i>Enter</i> - restart</div>
+    <div ><i>Spacebar</i> - vanish</div>
+    <div class="keyup"><i>W</i> - move up</div>
+    <div class="keyup"><i>S</i> - move down</div>
+    <div class="keyup"><i>A</i> - move left</div>
+    <div class="keyup"><i>D</i> - move right</div>
+</div>
 <div id="high-score-text">Your high score is: <span id="high-score"></span></div>
 <div class="points-text">Points</div>
 <div class="points-value"></div>
