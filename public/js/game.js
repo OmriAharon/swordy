@@ -249,24 +249,7 @@ function beginGame(replay) {
     var keysDown = {};
 
     addEventListener("keydown", function (e) {
-        if (e.keyCode === 32 && vanishes.length > 0 && animationRequestId !== 'STOP') {
-            vanishes.pop();
-            updateVanishList();
-            document.getElementById('use-vanish').play();
-            vanishHero = true;
-            timeVanished = Date.now();
-            chargerText = VANISHING_COUNTER;
-            for (var i = 1; i < VANISHING_COUNTER; i++) {
-                (function (time) {
-                    setTimeout(function () {
-                        chargerText = VANISHING_COUNTER - time;
-                    }, time * 1000);
-                })(i);
-            }
-        }
-        else if (e.keyCode !== 32) {
-            keysDown[e.keyCode] = true;
-        }
+        keysDown[e.keyCode] = true;
     }, false);
 
     addEventListener("keyup", function (e) {
@@ -280,7 +263,26 @@ function beginGame(replay) {
     };
 
 
-// Update game objects
+    function legalToVanish() {
+        return vanishes.length > 0 && animationRequestId !== 'STOP';
+    }
+
+    function handleVanish() {
+        vanishes.pop();
+        updateVanishList();
+        document.getElementById('use-vanish').play();
+        vanishHero = true;
+        timeVanished = Date.now();
+        chargerText = VANISHING_COUNTER;
+        for (var i = 1; i < VANISHING_COUNTER; i++) {
+            (function (time) {
+                setTimeout(function () {
+                    chargerText = VANISHING_COUNTER - time;
+                }, time * 1000);
+            })(i);
+        }
+    }
+
     var update = function (modifier) {
         if (38 in keysDown) { // Player holding up
             hero.y -= hero.speed * modifier;
@@ -293,6 +295,12 @@ function beginGame(replay) {
         }
         if (39 in keysDown) { // Player holding right
             hero.x += hero.speed * modifier;
+        }
+        if (32 in keysDown) {
+            if (legalToVanish()) {
+                delete keysDown[32];
+                handleVanish();
+            }
         }
 
         // Are they touching?
