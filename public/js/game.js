@@ -494,7 +494,7 @@ function beginGame(replay) {
     function checkToAddMonster() {
         if (secondsSinceStarted % SECONDS_BETWEEN_SPAWNS === 0 && secondsDispersedSwords.indexOf(secondsSinceStarted) === -1) {
             for (var i = 0; i < NUMBER_OF_SPAWNS; i++) {
-                //monsters.push(createMonster());
+                monsters.push(createMonster());
             }
             secondsDispersedSwords.push(secondsSinceStarted);
         }
