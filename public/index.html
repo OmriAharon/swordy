@@ -6,6 +6,10 @@
 
     <style>
 
+        .hs li {
+            list-style-type: decimal;
+        }
+
         #high-score-text {
             position: absolute;
             top: 400px;
@@ -13,6 +17,10 @@
             width: 200px;
             height: 150px;
             text-align: center;
+        }
+
+        #high-score-text .hall-of-fame {
+            margin-top: 20px;
         }
 
         .points-text {
@@ -236,7 +244,30 @@
 
         }
 
+        .high-score-input-wrapper {
+            display: none;
+            position: absolute;
+            padding: 20px;
+            left: 34%;
+            top: 35%;
+            background-color: rgba(108, 108, 108, 0.95);
+            border: 1px solid #cccccc;
+            height: 100px;
+            width: 420px;
+            border: 3px solid #FFF;
+            border-radius: 14px;
+            -webkit-box-shadow: 0px 0px 28px 0px rgba(22, 162, 40, 1);
+            -moz-box-shadow: 0px 0px 28px 0px rgba(22, 162, 40, 1);
+            box-shadow: 0px 0px 28px 0px rgba(22, 162, 40, 1);
+        }
 
+        .text-space1 {
+            margin-top: 30px;
+        }
+
+        .text-space2 {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -247,15 +278,28 @@
     <canvas style="border:1px solid red; margin-top: 10%;" id="testCanvas" width="600" height="600"></canvas>
 </div>
 
+<div class="high-score-input-wrapper">
+    <div>Congratulations! You've made a high score!</div>
+    <div class="text-space1">Enter your name for glory:</div>
+    <div class="text-space2">
+        <input id="username" type="text"/>
+        <button id="send-btn">Submit</button>
+    </div>
+</div>
+
 <div class="replay">
-    <div ><i>Enter</i> - restart</div>
-    <div ><i>Spacebar</i> - vanish</div>
+    <div><i>Enter</i> - restart</div>
+    <div><i>Spacebar</i> - vanish</div>
     <div class="keyup"><i>W</i> - move up</div>
     <div class="keyup"><i>S</i> - move down</div>
     <div class="keyup"><i>A</i> - move left</div>
     <div class="keyup"><i>D</i> - move right</div>
 </div>
-<div id="high-score-text">Your high score is: <span id="high-score"></span></div>
+<div id="high-score-text">
+    <div>Your high score is: <span id="high-score"></span></div>
+    <div class="hall-of-fame">Hall of Fame:</div>
+    <div class="hs"></div>
+</div>
 <div class="points-text">Points</div>
 <div class="points-value"></div>
 
@@ -271,16 +315,20 @@
 <script>
     (function () {
 
+        $('#send-btn').on('click', function () {
+            updateHighscore();
+        });
+
         var button = document.getElementsByClassName('replay')[0];
 
         button.addEventListener('click', function () {
-            saveHighscore();
+//            saveHighscore();
             beginGame(true);
         }, false);
 
         addEventListener("keydown", function (e) {
             if (e.keyCode === 13) {
-                saveHighscore();
+//                saveHighscore();
                 beginGame(true);
             }
         }, false);

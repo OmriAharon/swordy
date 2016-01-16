@@ -33,10 +33,41 @@ var secondsSinceStartedLast = 0;
 var totalPoints = 0;
 var timeVanished;
 var animationRequestId;
+var allTimeHighScores;
+
+function getAllTimeHighScores() {
+    $.get('/highscore', totalPoints, function(data) {
+        allTimeHighScores = data;
+        var hsList = $('<ul></ul>');
+        for (var i = 0; i < data.length; i++) {
+            var child = $('<li></li>');
+            child.html(data[i].name + ': ' + data[i].score);
+            hsList.append(child);
+        }
+        $('.hs').html(hsList);
+    });
+}
+
+function updateHighscore() {
+    $('.high-score-input-wrapper').hide();
+    var obj = {
+        name: $('#username').val(),
+        score: totalPoints
+    };
+    $.post('/highscore', obj, function () {
+        getAllTimeHighScores();
+        $('#username').val('')
+    });
+}
 
 function saveHighscore() {
     if (totalPoints > getHighscoreFromLS()) {
         localStorage.setItem('highScore', totalPoints);
+    }
+
+    if (!allTimeHighScores || allTimeHighScores.length < 5 || totalPoints > allTimeHighScores[allTimeHighScores.length-1].score) {
+        // get user name
+        $('.high-score-input-wrapper').show();
     }
 }
 function getHighscoreFromLS() {
@@ -47,6 +78,7 @@ function getDisplayedHighscore() {
 }
 
 function beginGame(replay) {
+    getAllTimeHighScores();
     var monsterImageData = null;
     var heroImageData = null;
 
