@@ -29,7 +29,3 @@ app.post('/highscore', function(req, res){
 
 
 var db = new Datastore({ filename: 'datafile', autoload: true });
-db.remove({ name: "Omriz"}, {multi: true});
-db.remove({ name: "Omri Aharon"}, {multi: true});
-db.remove({ name: "Adizi"}, {multi: true});
-db.persistence.compactDatafile();
