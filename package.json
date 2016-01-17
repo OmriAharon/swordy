@@ -2,7 +2,8 @@
   "name": "nows-game",
   "version": "0.0.1",
   "dependencies": {
-    "express": "^4.13.3"
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "nedb": "^1.5.1"
   }
 }
-
