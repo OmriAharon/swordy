@@ -23,7 +23,9 @@ app.get('/highscore', function(req, res){
 app.post('/highscore', function(req, res){
     var doc = req.body;
     doc.score = parseInt(doc.score, 10);
-    db.insert(doc);
+    if (data.score) {
+        db.insert(doc);
+    }
     res.send(200);
 });
 
